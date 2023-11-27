@@ -15,8 +15,8 @@ function hello()
     }
 }
 $sql = 'SELECT * FROM produit';
+$catsql = 'SELECT denomination FROM categorie';
 $rep = mysqli_query($connexion, $sql);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,11 +56,9 @@ $rep = mysqli_query($connexion, $sql);
                 <td><img src="<?php echo $row['photoProduit']; ?>" class="prodImg"></td>
                 <td><?php echo $row['idCategorie']; ?></td>                
                 <td>
-                    <a href="components/deleteProduct.php?reference=<?php echo $row['reference']; ?>"><i class="fa-solid fa-pencil fa-lg" style="color: #158e17;"></i></a>
+                    <a href="modifierProduit.php?reference=<?php echo $row['reference']; ?>"><i class="fa-solid fa-pencil fa-lg" style="color: #158e17;"></i></a>
                     <a href="components/deleteProduct.php?reference=<?php echo $row['reference']; ?>" onclick="return confirm('Are you sure you want to delete this product?')"><i class="fa-solid fa-trash fa-lg" style="color: #ab0303;"></i></a>
                 </td>
-                
-
             </tr>
         <?php } ?>
     </table>

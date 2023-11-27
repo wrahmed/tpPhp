@@ -1,12 +1,3 @@
-<?php
-    // Check if registration success flag is set
-    if ($_GET['registrationSuccess']) {
-        echo "<script>alert('Registration successful. You can now log in.');</script>";
-        // Reset the registration success flag to avoid showing the alert on subsequent visits
-        unset($_GET['registrationSuccess']);
-    }
-    ?>
-
 <!doctype html>
 
 <html lang="en"> 
@@ -15,7 +6,7 @@
 
   <meta charset="UTF-8"> 
 
-  <title>Login</title> 
+  <title>Regitser Page</title> 
   <link rel="stylesheet" href="components/css/style.css">
  </head> 
 
@@ -27,15 +18,25 @@
 
     <div class="content"> 
 
-     <h2>Sign In</h2> 
+     <h2>Register</h2> 
 
      <div class="form"> 
 
       <div class="inputBox"> 
 
-    <form method="POST" action="components/loginProcess.php">
+    <form method="POST" action="components/registerProcess.php">
 
        <input type="text" name="username"  required> <i>Username</i> 
+
+      </div> 
+      <div class="inputBox"> 
+
+       <input type="texte" name="nom" required> <i>Nom</i> 
+
+      </div> 
+      <div class="inputBox"> 
+
+       <input type="texte" name="prenom" required> <i>Prenom</i> 
 
       </div> 
 
@@ -45,13 +46,13 @@
 
       </div> 
 
-      <div class="links"> <a href="#">Forgot Password</a> <a href="register.php">Signup</a> 
+      <div class="links"> <a href="#">Forgot Password</a> <a href="LoginPage.php">Sign In</a> 
 
       </div> 
 
       <div class="inputBox"> 
 
-       <input type="submit" value="Login"> 
+       <input type="submit" value="Register"> 
 
     </form>
       </div> 
@@ -62,8 +63,7 @@
 
    </div> 
 
-  </section> <!-- partial --> 
-
+  </section>
  </body>
 
 </html>

@@ -1,44 +1,6 @@
 <?php
-
-include('components/testConn.php');
-include('components/nav.html');
-
-$connexionBDD = new ConnexionBDD();
-$connexion = $connexionBDD->getConnexion();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $image = 'img/' . $_FILES['image']['name'] ; 
-    $libelle = mysqli_real_escape_string($connexion, $_POST['libelle']);
-    $reference = mysqli_real_escape_string($connexion, $_POST['reference']);
-    $dateAchat = mysqli_real_escape_string($connexion, $_POST['dateAchat']);
-    $prixUnitaire = mysqli_real_escape_string($connexion, $_POST['prixUnitaire']);
-    $idCategorie = mysqli_real_escape_string($connexion, $_POST['idCategorie']);
-    $photoProduit = mysqli_real_escape_string($connexion, $image);
-    // Validation (you might need more thorough validation based on your requirements)
-    if (empty($libelle) || empty($reference) || empty($dateAchat) || empty($prixUnitaire) || empty($idCategorie)) {
-        $message = "Tous les champs doivent être remplis.";
-    } else {
-        // Prepared Statement
-        $sql = "INSERT INTO produit (libelle, reference, dateAchat, prixUnitaire, idCategorie, photoProduit) 
-                VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($connexion, $sql);
-        mysqli_stmt_bind_param($stmt, 'ssssss', $libelle, $reference, $dateAchat, $prixUnitaire, $idCategorie, $photoProduit);
-
-        if (mysqli_stmt_execute($stmt)) {
-            $message = "Produit ajouté avec succès.";
-            echo "<script>alert('$message');</script>";
-        } else {
-            error_log("Erreur lors de l'ajout du produit : " . mysqli_error($connexion));
-            $message = "Une erreur est survenue lors de l'ajout du produit. Veuillez réessayer plus tard.";
-        }
-        mysqli_stmt_close($stmt);
-    }
-} else {
-    $message = "Le formulaire n'a pas été soumis correctement.";
-}
-
-// Fermez la connexion après utilisation
-$connexionBDD->fermerConnexion();
+include('components/nav.html') ; 
+include('components/addProductProcess.php') ; 
 
 ?>
 
@@ -54,21 +16,24 @@ $connexionBDD->fermerConnexion();
     <h1 id="title">Ajouter Produit</h1>
     <fieldset>
         <legend>Produit</legend><br><br>
-        <form method="POST" action="components/addProductProcess.php" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
                 <label for="text">Libelle:</label>
-                <input type="text" name="libelle"><br>
+                <input type="text" name="libelle" required><br>
                 <label for="text">Reference:</label>
-                <input type="text" name="reference"><br>
+                <input type="text" name="reference" required><br>
                 <label for="text">Date Achat:</label>
-                <input type="date" name="dateAchat"><br>
+                <input type="date" name="dateAchat" required><br>
                 <label for="text">Prix Unitaire:</label>
-                <input type="number" name="prixUnitaire"><br>
+                <input type="number" name="prixUnitaire" required><br>
                 <label for="file">Photo du produit:</label>
-                <input type="file" id="file" name="image"><br> 
+                <input type="file" id="file" name="image" required><br> 
                 <label for="cat">Choisir une categorie:</label>
-                <select id="cat" name="idCategorie">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                <select id="cat" name="idCategorie" required>
+                            <?php
+                    foreach ($categories as $category) {
+                        echo "<option value='{$category['idCategorie']}'>{$category['denomination']}</option>";
+                    }
+                    ?>
                 </select> <br><br>
                 <input type="submit" value="Ajouter" id="submit"><br><br>
                 </fieldset>

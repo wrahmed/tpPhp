@@ -17,6 +17,7 @@ function hello()
 $sql = 'SELECT * FROM produit';
 $catsql = 'SELECT denomination FROM categorie';
 $rep = mysqli_query($connexion, $sql);
+$connexionBDD->fermerConnexion();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,9 +64,7 @@ $rep = mysqli_query($connexion, $sql);
         <?php } ?>
     </table>
 </form>
-<?php
-$connexionBDD->fermerConnexion();
-?>
+
 
 </body>
 </html>

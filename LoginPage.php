@@ -63,6 +63,12 @@
    </div> 
 
   </section> <!-- partial --> 
+<?php 
+  $invalid = $_GET["invalid"]  ; 
+  if($invalid)
+    echo "<script>alert('Invalid username or password')</script>";
+  
+?>
 
  </body>
 

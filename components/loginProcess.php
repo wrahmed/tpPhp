@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $_SESSION['error'] = "Invalid username or password";
-            header('Location: ../LoginPage.php'); 
+            header('Location: ../LoginPage.php?invalid=true'); 
             exit();
         }
 } else {

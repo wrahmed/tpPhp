@@ -69,6 +69,35 @@ if ($result && mysqli_num_rows($result) > 0) {
     $categories = array(); // Empty array if no categories are found
 }
 
+//DISPLAY NAME OF PRODUCT 
+{
+    if (isset($_GET['reference'])) {
+        $reference = $_GET['reference'];
+        
+        // Fetch product details from the database
+        $sql = "SELECT * FROM produit WHERE reference = ?";
+        $stmt = mysqli_prepare($connexion, $sql);
+        mysqli_stmt_bind_param($stmt, 's', $reference);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+    
+        // Check if the product exists
+        if ($result && mysqli_num_rows($result) > 0) {
+            $product = mysqli_fetch_assoc($result);
+            // Close the prepared statement
+            mysqli_stmt_close($stmt);
+    
+            // Display the name of the product
+            $nom_produit = $product['libelle'];
+        } else {
+            echo "Product not found.";
+        }
+    } else {
+        echo "Product reference not provided.";
+    }
+}
+
+
 $connexionBDD->fermerConnexion();
 
 ?>

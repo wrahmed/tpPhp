@@ -1,6 +1,6 @@
 <?php
 include('components/nav.html');
-include('components/modifyProductProcess.php')
+include('components/modifyProductProcess.php');
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ include('components/modifyProductProcess.php')
     <title>IAGI's Stock | Ajouter Produit</title>
 </head>
 <body>
-    <h1 id="title">Modifier Produit</h1>
+    <h1 id="title">Modifier Produit : <?php echo $nom_produit ?></h1>
     <fieldset>
         <legend>Produit</legend><br><br>
         <form method="POST" enctype="multipart/form-data">
